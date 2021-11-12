@@ -1,0 +1,16 @@
+{
+  "name": "webtools.starterkit",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Starter tools for 3Б",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GrachBiceps/WEBTOOLS.StarterKit"
+  },
+  "scripts": {},
+  "author": "GrachBiceps",
+  "license": "ISC",
+  "dependencies": {
+    "pug": "^3.0.2"
+  }
+}
