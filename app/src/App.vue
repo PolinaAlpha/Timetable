@@ -1,18 +1,45 @@
 <template lang='pug'>
-div.w-full.h-full.grid.grid-cols-2.mt-8
-    div.ml-auto.pt-24.pb-24.px-20.text-center.grid.grid-cols-1.gap-4.glassmor
-        div.p-4.inputlog.m-2 Авторизация
-        div.p-4.gap-4.grid.grid-cols-4
-            span.text-left.mr-2.self-center Логин
-            input.bg-current.inputlog.col-span-3.p-1.border-red-500
-            span.text-left.mr-2.self-center Пароль
-            input.bg-current.inputlog.col-span-3.p-1.border-red-500
-        div.flex.mx-auto
-            button.py-4.bg-pink-300.px-8.mr-8.rounded-xl Войти
-            button.text-gray-700 Зарегистрироваться
-    img.col-start-2(src="./assets/ZKB7S3Z0_Vw.jpg")
+div(v-if = "authorization")
+    div.w-full.h-full.grid.grid-cols-2.mt-64
+        div.ml-auto.pt-24.pb-24.px-20.text-center.grid.grid-cols-1.gap-4.glassmor
+            div.p-4.inputlog.m-2 Авторизация
+            div.p-4.gap-4.grid.grid-cols-4
+                span.text-left.mr-2.self-center Логин
+                input.bg-current.inputlog.col-span-3.p-1.border-red-500
+                span.text-left.mr-2.self-center Пароль
+                input.bg-current.inputlog.col-span-3.p-1.border-red-500
+            div.flex.mx-auto
+                button.py-4.bg-pink-300.px-8.mr-8.rounded-xl Войти
+                button.py-4.px-8.mr-8.rounded-xl(@click="backAuth()") Назад
+        img.col-start-2(src="./assets/ZKB7S3Z0_Vw.jpg")
+div(v-else)
+    router-view 
 </template>
-<script> 
+<script>
+import Timetable from "./pages/Timetable.vue"
+import { mapState} from 'vuex'
+export default {
+    data(){
+        return {
+        }
+    },
+    components: {
+        Timetable
+        },
+    computed: {
+        ...mapState({
+      token: state => state.auth.token,
+      authed: state => state.auth.authed,
+      authorization: state => state.auth.authorization
+      })
+    },
+    methods: {
+      backAuth() {
+          const edit = false
+          this.$store.commit('auth/editAuthorization', edit)
+      }
+    }
+}
 </script>
 <style lang="postcss">
 @import "./assets/styles/tailwind.postcss";

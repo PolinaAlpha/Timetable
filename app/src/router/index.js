@@ -1,7 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
+import Timetable from "../pages/Timetable.vue"
 
 const routes = [
-  
+  {
+  path:"/",
+  component: Timetable
+  }
 ];
 
 const router = createRouter({
