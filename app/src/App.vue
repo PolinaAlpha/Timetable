@@ -5,11 +5,12 @@ div(v-if = "authorization")
             div.p-4.inputlog.m-2 Авторизация
             div.p-4.gap-4.grid.grid-cols-4
                 span.text-left.mr-2.self-center Логин
-                input.bg-current.inputlog.col-span-3.p-1.border-red-500
+                input.bg-current.inputlog.col-span-3.p-1.border-red-500(v-model = "login" :class = `{border: validerror}`)
                 span.text-left.mr-2.self-center Пароль
-                input.bg-current.inputlog.col-span-3.p-1.border-red-500
+                input.bg-current.inputlog.col-span-3.p-1.border-red-500(v-model = "password" :class = `{border: validerror}`)
+            p.text-red-500(v-show="validerror") Неверные данные
             div.flex.mx-auto
-                button.py-4.bg-pink-300.px-8.mr-8.rounded-xl Войти
+                button.py-4.bg-pink-300.px-8.mr-8.rounded-xl(@click="signIn()") Войти
                 button.py-4.px-8.mr-8.rounded-xl(@click="backAuth()") Назад
         img.col-start-2(src="./assets/ZKB7S3Z0_Vw.jpg")
 div(v-else)
@@ -21,6 +22,9 @@ import { mapState} from 'vuex'
 export default {
     data(){
         return {
+            login: "",
+            password: "",
+            validerror: false
         }
     },
     components: {
@@ -37,6 +41,26 @@ export default {
       backAuth() {
           const edit = false
           this.$store.commit('auth/editAuthorization', edit)
+      },
+      async signIn() {
+          const response = await fetch("auth/login", {
+         method: "POST",
+         headers: {"Content-Type": "application/json"},
+         body: JSON.stringify({
+           username: this.login,
+           password: this.password
+         })
+       });
+       if(response.status == 400) {
+           this.validerror = true
+       }
+       else{
+       const edit = true
+       const edit2 = false
+       this.validerror = false
+       this.$store.commit('auth/editAuthed', edit)
+       this.$store.commit('auth/editAuthorization', edit2)
+       }
       }
     }
 }
