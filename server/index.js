@@ -1,6 +1,5 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const router = require("express")
 const app = express()
 
 const authRouter = require("./authRouter")
@@ -9,7 +8,7 @@ app.use(express.json())
 app.use(express.urlencoded())
 app.use("/auth", authRouter)
 
-//Включение сервера
+//Порт сервера
 const port = process.env.port || 3001
 
 //Для фронта

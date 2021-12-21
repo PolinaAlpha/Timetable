@@ -1,8 +1,7 @@
 export const authModule = {
     state: () => ({
       authorization: false,
-      authed: false,
-      token: ""
+      authed: false
     }),
     mutations: {
       editAuthorization(state, edit) {

@@ -3,7 +3,6 @@ const router = new Router()
 
 //Authorization
 const authController = require('./authController')
-const {check} = require('express-validator')
 const tableController = require('./tableController')
 
 router.post('/login', authController.login)

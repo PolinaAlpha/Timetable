@@ -20,7 +20,6 @@ class tableController{
         try{
             const {audNumber, date} = req.body
             const timetable = await Timetable.findOne({audNumber, date})
-            console.log(timetable)
             if(timetable == null){
                 return res.status(400).json({message: 'Аудитории нет'})
                 }
